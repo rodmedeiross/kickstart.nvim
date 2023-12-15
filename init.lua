@@ -423,7 +423,19 @@ local servers = {
     }
   },
   -- pyright = {},
-  -- rust_analyzer = {},
+  rust_analyzer = {
+    filetypes = {
+      "rust",
+    },
+    completeUnimported = true,
+    settings = {
+      ['rust_analyzer'] = {
+        cargo = {
+          allFeatures = true,
+        }
+      }
+    }
+  },
   -- tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
 
