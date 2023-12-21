@@ -123,6 +123,7 @@ require('lazy').setup({
     branch = '0.1.x',
     dependencies = {
       'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-ui-select.nvim',
       -- Fuzzy Finder Algorithm which requires local dependencies to be built.
       -- Only load if `make` is available. Make sure you have the system
       -- requirements installed.
@@ -204,6 +205,14 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- Move Lines
+vim.keymap.set('n', '<A-k>', "<Cmd>m .-2<CR>==", { silent = true })
+vim.keymap.set('n', '<A-j>', "<Cmd>m .+1<CR>==", { silent = true })
+vim.keymap.set('i', '<A-k>', "<Esc><Cmd>m .-2<CR>==gi", { silent = true })
+vim.keymap.set('i', '<A-j>', "<Esc><Cmd>m .+1<CR>==gi", { silent = true })
+-- vim.keymap.set('v', '<A-k>', "<Cmd>m '<-2<CR>gv", { silent = true })
+-- vim.keymap.set('v', '<A-j>', "<Cmd>m '>+1<CR>gv", { silent = true })
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -218,6 +227,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
 require('telescope').setup {
+  extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_dropdown {}
+    }
+  },
   defaults = {
     mappings = {
       i = {
@@ -228,9 +242,9 @@ require('telescope').setup {
   },
 }
 
--- Enable telescope fzf native, if installed
+-- Enable telescope fzf native and ui select, if installed
 pcall(require('telescope').load_extension, 'fzf')
-
+pcall(require('telescope').load_extension, 'ui-select')
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
@@ -422,7 +436,7 @@ local servers = {
       }
     }
   },
-  -- tsserver = {},
+  tsserver = {},
   html = { filetypes = { 'html', 'twig', 'hbs' } },
 
   lua_ls = {
