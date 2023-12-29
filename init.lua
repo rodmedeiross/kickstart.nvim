@@ -21,6 +21,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
+  -- Github Copilot
+  'github/copilot.vim',
 
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -242,7 +244,7 @@ require('telescope').setup {
   },
 }
 
--- Enable telescope fzf native and ui select, if installed
+-- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'ui-select')
 -- See `:help telescope.builtin`
