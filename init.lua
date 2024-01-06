@@ -215,6 +215,24 @@ vim.keymap.set('i', '<A-j>', "<Esc><Cmd>m .+1<CR>==gi", { silent = true })
 -- vim.keymap.set('v', '<A-k>', "<Cmd>m '<-2<CR>gv", { silent = true })
 -- vim.keymap.set('v', '<A-j>', "<Cmd>m '>+1<CR>gv", { silent = true })
 
+-- [[ Configure Github Copilot ]]
+-- Copilot Key Remap
+vim.g.copilot_no_tab_map = true
+vim.api.nvim_set_keymap("i", "<A-c>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+-- Set Whitelist to Copilot
+vim.g.copilot_filetypes = {
+  ["*"] = false,
+  ["javascript"] = true,
+  ["typescript"] = true,
+  ["lua"] = false,
+  ["rust"] = true,
+  ["c"] = true,
+  ["c#"] = true,
+  ["c++"] = true,
+  ["go"] = true,
+  ["python"] = true,
+}
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
