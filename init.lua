@@ -212,8 +212,8 @@ vim.keymap.set('n', '<A-k>', "<Cmd>m .-2<CR>==", { silent = true })
 vim.keymap.set('n', '<A-j>', "<Cmd>m .+1<CR>==", { silent = true })
 vim.keymap.set('i', '<A-k>', "<Esc><Cmd>m .-2<CR>==gi", { silent = true })
 vim.keymap.set('i', '<A-j>', "<Esc><Cmd>m .+1<CR>==gi", { silent = true })
--- vim.keymap.set('v', '<A-k>', "<Cmd>m '<-2<CR>gv", { silent = true })
--- vim.keymap.set('v', '<A-j>', "<Cmd>m '>+1<CR>gv", { silent = true })
+vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { silent = true })
+vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { silent = true })
 
 -- [[ Configure Github Copilot ]]
 -- Copilot Key Remap
@@ -368,12 +368,6 @@ vim.defer_fn(function()
     },
   }
 end, 0)
-
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
