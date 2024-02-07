@@ -13,6 +13,7 @@ return {
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
+    'theHamsta/nvim-dap-virtual-text',
 
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
@@ -20,10 +21,19 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    'mxsdev/nvim-dap-vscode-js',
+
+    {
+      'Joakker/lua-json5',
+      build = './install.sh',
+    },
   },
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
+    local dapui_virtual_text = require 'nvim-dap-virtual-text'
+    local adapters = require 'custom.plugins.dap.adapters'
+    local configurations = require 'custom.plugins.dap.configs'
 
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
@@ -39,14 +49,19 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'js-debug-adapter',
+        'node-debug2-adapter',
+        'netcoredbg',
       },
+
+      automatic_installation = true,
     }
 
     -- Basic debugging keymaps, feel free to change to your liking!
     vim.keymap.set('n', '<F5>', dap.continue, { desc = 'Debug: Start/Continue' })
-    vim.keymap.set('n', '<F10>', dap.step_into, { desc = 'Debug: Step Into' })
-    vim.keymap.set('n', '<F11>', dap.step_over, { desc = 'Debug: Step Over' })
-    vim.keymap.set('n', '<F12>', dap.step_out, { desc = 'Debug: Step Out' })
+    vim.keymap.set('n', '<leader>di', dap.step_into, { desc = 'Debug: Step Into' })
+    vim.keymap.set('n', '<leader>do', dap.step_over, { desc = 'Debug: Step Over' })
+    vim.keymap.set('n', '<leader>dso', dap.step_out, { desc = 'Debug: Step Out' })
     vim.keymap.set('n', '<Leader>dr', dap.repl.open, { desc = 'Debug: Open Repl' })
     vim.keymap.set('n', '<leader>b', dap.toggle_breakpoint, { desc = 'Debug: Toggle Breakpoint' })
     vim.keymap.set('n', '<leader>B', function()
@@ -63,16 +78,28 @@ return {
       controls = {
         icons = {
           pause = '⏸',
-          play = '▶',
-          step_into = '⏎',
-          step_over = '⏭',
-          step_out = '⏮',
-          step_back = 'b',
-          run_last = '▶▶',
-          terminate = '⏹',
-          disconnect = '⏏',
+          play = '',
+          step_into = '',
+          step_over = '',
+          step_out = '',
+          step_back = '',
+          run_last = '',
+          terminate = '',
+          disconnect = '',
         },
       },
+
+      floating = {
+        border = "single",
+        mappings = {
+          close = { "q", "<Esc>" },
+        },
+      },
+    }
+
+    dapui_virtual_text.setup {
+      highlight_new_as_changed = true,
+      commented = true,
     }
 
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
@@ -82,7 +109,17 @@ return {
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
 
-    -- Install golang specific config
-    require('dap-go').setup()
+    -- Install language specific config
+    adapters.setup(dap)
+    configurations.setup(dap)
+
+    local js_based_languages = { "typescript", "javascript", "typescriptreact" }
+    require('dap.ext.vscode').load_launchjs(nil,
+      {
+        ['pwa-node'] = js_based_languages,
+        ['node'] = js_based_languages,
+        ['chrome'] = js_based_languages,
+        ['pwa-chrome'] = js_based_languages
+      })
   end,
 }

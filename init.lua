@@ -82,6 +82,8 @@ require('lazy').setup({
       },
       on_attach = function(bufnr)
         vim.keymap.set('n', '<leader>hp', require('gitsigns').preview_hunk, { buffer = bufnr, desc = 'Preview git hunk' })
+        vim.keymap.set('n', '<leader>hb', ":Gitsigns toggle_current_line_blame<CR>",
+          { buffer = bufnr, desc = 'Preview git line blame' })
 
         -- don't override the built-in and fugitive keymaps
         local gs = package.loaded.gitsigns
@@ -439,7 +441,8 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
+  clangd = {},
+
   gopls = {
     filetypes = { "go", "gomod", "gowork", "gotmpl" },
     settings = {
@@ -452,7 +455,9 @@ local servers = {
       }
     }
   },
-  -- pyright = {},
+
+  pyright = {},
+
   rust_analyzer = {
     filetypes = {
       "rust",
@@ -466,7 +471,9 @@ local servers = {
       }
     }
   },
+
   tsserver = {},
+
   html = { filetypes = { 'html', 'twig', 'hbs' } },
 
   lua_ls = {

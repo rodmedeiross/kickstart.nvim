@@ -12,7 +12,7 @@ local selectioncount = {
 
 local branch = {
   'branch',
-  icon = '󰊢'
+  icon = '󰊢 '
 }
 
 local diagnostics = {
@@ -24,14 +24,14 @@ local diagnostics = {
 
 local progress = {
   'progress',
-  icon = "",
+  icon = " ",
   padding = { left = 1, right = 1 }
 
 }
 
 local diff = {
   'diff',
-  symbols = { added = ' ', modified = ' ', removed = ' ' },
+  symbols = { added = '  ', modified = '  ', removed = '  ' },
   padding = { left = 1, right = 1 }
 }
 
@@ -53,12 +53,28 @@ local tabsize = {
   end,
 }
 
+local debug_status = {
+  function() return "  " .. require("dap").status() end,
+  cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
+}
+
+local commandHistory = {
+  function() return " : " .. require("noice").api.status.command.get() end,
+  cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
+}
+
+local statusMode = {
+  function() return require("noice").api.status.mode.get() end,
+  cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+}
+
 return {
   'nvim-lualine/lualine.nvim',
   config = function()
     require('lualine').setup {
       options = {
         icons_enabled = true,
+        globalstatus = true,
         -- theme = 'tokyonight',
         component_separators = '|',
         section_separators = { left = '', right = '' },
@@ -67,8 +83,9 @@ return {
         lualine_a = { 'mode', searchcount, selectioncount },
         lualine_b = { branch, diff, diagnostics },
         -- lualine_c = { 'filename', 'filetype'},
+        -- lualine_c = { commandHistory, statusMode },
         lualine_c = {},
-        lualine_x = { tabsize, encoding, 'fileformat' },
+        lualine_x = { commandHistory, debug_status, tabsize, encoding, 'fileformat' },
         lualine_y = { progress },
         lualine_z = { 'location' }
       },
