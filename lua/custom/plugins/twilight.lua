@@ -17,6 +17,6 @@ return {
     },
   },
   config = function()
-    vim.keymap.set('n', '<leader>t', ':Twilight<CR>', { desc = 'Enable [T]wilight' })
+    vim.keymap.set('n', '<leader>tt', ':Twilight<CR>', { desc = 'Enable [T]wilight' })
   end
 }

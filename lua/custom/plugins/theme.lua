@@ -15,25 +15,29 @@
 -- },
 
 return {
-  'rose-pine/neovim',
-  name = 'rose-pine',
-  config = function()
-    require('rose-pine').setup({
-      variant = 'moon',
-      dark_variant = 'moon',
-      extend_background_behind_borders = true,
-      -- dim_inactive_windows = true,
+  {
+    'rose-pine/neovim',
+    name = 'rose-pine',
+    config = function()
+      require('rose-pine').setup({
+        variant = 'moon',
+        dark_variant = 'moon',
+        extend_background_behind_borders = true,
+        -- dim_inactive_windows = true,
 
-      enable = {
-        terminal = true,
-      },
-
-      styles = {
-        transparency = true,
-      }
-    })
-    vim.cmd('colorscheme rose-pine')
-  end,
+        enable = {
+          terminal = true,
+        },
+      })
+      vim.cmd('colorscheme rose-pine')
+    end,
+  },
+  {
+    'xiyaowong/transparent.nvim',
+    config = function()
+      vim.keymap.set('n', '<leader>tr', '<cmd>TransparentToggle<CR>', { desc = "Enable t[R]ansparency UI" })
+    end
+  }
 }
 
 -- return {

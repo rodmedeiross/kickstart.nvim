@@ -53,6 +53,12 @@ local tabsize = {
   end,
 }
 
+local file_name = {
+  'filename',
+  file_status = false,
+  path = 3,
+}
+
 local debug_status = {
   function() return "  " .. require("dap").status() end,
   cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
@@ -70,6 +76,7 @@ local statusMode = {
 
 return {
   'nvim-lualine/lualine.nvim',
+  event = "VeryLazy",
   config = function()
     require('lualine').setup {
       options = {
@@ -84,7 +91,7 @@ return {
         lualine_b = { branch, diff, diagnostics },
         -- lualine_c = { 'filename', 'filetype'},
         -- lualine_c = { commandHistory, statusMode },
-        lualine_c = {},
+        lualine_c = { file_name },
         lualine_x = { commandHistory, debug_status, tabsize, encoding, 'fileformat' },
         lualine_y = { progress },
         lualine_z = { 'location' }
