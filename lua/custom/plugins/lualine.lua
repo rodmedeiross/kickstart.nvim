@@ -19,7 +19,7 @@ local diagnostics = {
   'diagnostics',
   update_in_insert = false,
   -- always_visible = true,
-  symbols = { error = " ", warn = " ", hint = "󰌶 ", info = "󰋽 " },
+  symbols = { error = "  ", warn = "  ", hint = "󰌶  ", info = "󰋽  " },
 }
 
 local progress = {
@@ -38,7 +38,7 @@ local diff = {
 local encoding = {
   'encoding',
   fmt = function(str) return string.upper(str) end,
-  padding = { left = 1, right = 0 }
+  padding = { left = 1, right = 1 }
 }
 
 local tabsize = {
@@ -47,7 +47,7 @@ local tabsize = {
     local size = vim.bo.expandtab and vim.bo.shiftwidth or vim.bo.tabstop
     return type .. ":" .. size
   end,
-  padding = { left = 1, right = 0 },
+  padding = { left = 1, right = 1 },
   cond = function()
     return vim.bo.filetype ~= ""
   end,
@@ -57,6 +57,7 @@ local file_name = {
   'filename',
   file_status = false,
   path = 3,
+  color = { fg = "#ea9a97" }
 }
 
 local debug_status = {
@@ -69,9 +70,13 @@ local commandHistory = {
   cond = function() return package.loaded["noice"] and require("noice").api.status.command.has() end,
 }
 
-local statusMode = {
-  function() return require("noice").api.status.mode.get() end,
-  cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+-- local statusMode = {
+--   function() return require("noice").api.status.mode.get() end,
+--   cond = function() return package.loaded["noice"] and require("noice").api.status.mode.has() end,
+-- }
+
+local autosessions = {
+  require('auto-session.lib').current_session_name,
 }
 
 return {
@@ -82,16 +87,18 @@ return {
       options = {
         icons_enabled = true,
         globalstatus = true,
-        -- theme = 'tokyonight',
-        component_separators = '|',
-        section_separators = { left = '', right = '' },
+        theme = 'rose-pine',
+        component_separators = { left = ' ', right = '' },
+        -- component_separators = { left = '', right = '' },
+        -- section_separators = { left = '', right = '' },
+        section_separators = { left = '', right = '' },
       },
       sections = {
         lualine_a = { 'mode', searchcount, selectioncount },
         lualine_b = { branch, diff, diagnostics },
         -- lualine_c = { 'filename', 'filetype'},
         -- lualine_c = { commandHistory, statusMode },
-        lualine_c = { file_name },
+        lualine_c = { file_name, autosessions },
         lualine_x = { commandHistory, debug_status, tabsize, encoding, 'fileformat' },
         lualine_y = { progress },
         lualine_z = { 'location' }

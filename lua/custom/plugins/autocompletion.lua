@@ -29,6 +29,14 @@ return {
 
     luasnip.config.setup {}
 
+    -- `/` cmdline setup.
+    cmp.setup.cmdline('/', {
+      mapping = cmp.mapping.preset.cmdline(),
+      sources = {
+        { name = 'buffer' }
+      }
+    })
+
     cmp.setup {
       snippet = {
         expand = function(args)

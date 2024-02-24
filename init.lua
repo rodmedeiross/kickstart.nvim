@@ -37,6 +37,9 @@ require('lazy').setup({
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim',  event = { "BufEnter" }, opts = {} },
 
+  -- Add multi cursor
+  'mg979/vim-visual-multi',
+
   -- Import everthing in lua/custom/plugin/*.lua
   { import = 'custom.plugins' },
 
@@ -103,6 +106,10 @@ vim.keymap.set('i', '<A-k>', "<Esc><Cmd>m .-2<CR>==gi", { silent = true })
 vim.keymap.set('i', '<A-j>', "<Esc><Cmd>m .+1<CR>==gi", { silent = true })
 vim.keymap.set('v', '<A-k>', ":m '<-2<CR>gv=gv", { silent = true })
 vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { silent = true })
+
+-- Keep window centered
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
