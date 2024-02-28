@@ -79,6 +79,21 @@ local autosessions = {
   require('auto-session.lib').current_session_name,
 }
 
+local lsp_clients = function()
+  local clients = vim.lsp.get_active_clients()
+  local clients_lists = {}
+
+  for _, client in pairs(clients) do
+    local name = client.name
+    if client.name == "copilot" then
+      name = "  "
+    end
+    table.insert(clients_lists, name)
+  end
+
+  return '  LSP: ' .. table.concat(clients_lists, " ")
+end
+
 return {
   'nvim-lualine/lualine.nvim',
   event = "VeryLazy",
@@ -99,7 +114,7 @@ return {
         -- lualine_c = { 'filename', 'filetype'},
         -- lualine_c = { commandHistory, statusMode },
         lualine_c = { file_name, autosessions },
-        lualine_x = { commandHistory, debug_status, tabsize, encoding, 'fileformat' },
+        lualine_x = { commandHistory, lsp_clients, debug_status, tabsize, encoding, 'fileformat' },
         lualine_y = { progress },
         lualine_z = { 'location' }
       },
