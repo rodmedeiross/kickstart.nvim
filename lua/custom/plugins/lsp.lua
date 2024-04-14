@@ -16,6 +16,7 @@ return {
 
     -- Additional lua configuration, makes nvim stuff amazing!
     'folke/neodev.nvim',
+    'mfussenegger/nvim-jdtls',
   },
   config = function()
     --  This function gets run when an LSP connects to a particular buffer.
@@ -117,6 +118,9 @@ return {
           telemetry = { enable = false },
         },
       },
+
+      jdtls = {},
+
     }
 
     -- Setup neovim lua configuration
