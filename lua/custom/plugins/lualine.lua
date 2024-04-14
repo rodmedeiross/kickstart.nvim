@@ -82,13 +82,26 @@ local autosessions = {
 local lsp_clients = function()
   local clients = vim.lsp.get_active_clients()
   local clients_lists = {}
+  local copilot = nil
 
   for _, client in pairs(clients) do
     local name = client.name
     if client.name == "copilot" then
-      name = "  "
+      copilot = "  "
+      goto continue
     end
+
     table.insert(clients_lists, name)
+
+    ::continue::
+  end
+
+  if copilot ~= nil then
+    table.insert(clients_lists, copilot)
+  end
+
+  if copilot ~= nil and table.getn(clients_lists) == 1 then
+    return table.concat(clients_lists, " ")
   end
 
   return '  LSP: ' .. table.concat(clients_lists, " ")

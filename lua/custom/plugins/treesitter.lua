@@ -26,7 +26,8 @@ return {
           'bash',
           'ruby',
           'ocaml',
-          'haskell'
+          'haskell',
+          'java'
         },
 
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)

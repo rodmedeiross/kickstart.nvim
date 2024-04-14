@@ -12,7 +12,8 @@ return {
       ['<leader>n'] = { name = '[N]oice options', _ = 'which_key_ignore' },
       ['<leader>p'] = { name = 'Har[P]oon', _ = 'which_key_ignore' },
       ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-      ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
+      ['<leader>s'] = { name = '[S]earch / [S]ession', _ = 'which_key_ignore' },
+      ['<leader>ss'] = { name = '[S]ession Manager', _ = 'which_key_ignore' },
       ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
       ['<leader>t'] = { name = 'UI changes', _ = 'which_key_ignore' },
     }

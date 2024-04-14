@@ -14,14 +14,25 @@ return {
         previewer = false,
       },
       pre_save_cmds = {
-        "Neotree! close"
+        "Neotree close"
       },
+      auto_save_enabled = false,
     }
 
     -- ⚠️ This will only work if Telescope.nvim is installed
-    vim.keymap.set("n", "<leader>ss", require("auto-session.session-lens").search_session, {
+    vim.keymap.set("n", "<leader>sss", require("auto-session.session-lens").search_session, {
       noremap = true,
       desc = "Search [S]ession"
+    })
+
+    vim.keymap.set("n", "<leader>ssd", "<cmd>SessionDelete<CR>", {
+      noremap = true,
+      desc = "[S]ession [D]elete"
+    })
+
+    vim.keymap.set("n", "<leader>ssv", "<cmd>SessionSave<CR>", {
+      noremap = true,
+      desc = "[S]ession Sa[V]e"
     })
   end
 }
