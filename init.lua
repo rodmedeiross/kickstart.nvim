@@ -25,15 +25,6 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
-  {
-    -- Add indentation guides even on blank lines
-    'lukas-reineke/indent-blankline.nvim',
-    -- See `:help ibl`
-    event = "BufEnter",
-    main = 'ibl',
-    opts = {},
-  },
-
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim',  event = { "BufEnter" }, opts = {} },
 

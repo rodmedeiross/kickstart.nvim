@@ -16,6 +16,7 @@ return {
       ['<leader>ss'] = { name = '[S]ession Manager', _ = 'which_key_ignore' },
       ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
       ['<leader>t'] = { name = 'UI changes', _ = 'which_key_ignore' },
+      ['<leader>u'] = { name = '[U]tils Tools', _ = 'which_key_ignore' },
     }
   end
 }

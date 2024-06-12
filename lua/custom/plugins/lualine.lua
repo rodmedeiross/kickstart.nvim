@@ -60,6 +60,11 @@ local file_name = {
   color = { fg = "#ea9a97" }
 }
 
+local theme = {
+  function() return "󰉦  " .. vim.g.colors_name end,
+  padding = { left = 1, right = 1 }
+}
+
 local debug_status = {
   function() return "  " .. require("dap").status() end,
   cond = function() return package.loaded["dap"] and require("dap").status() ~= "" end,
@@ -115,7 +120,7 @@ return {
       options = {
         icons_enabled = true,
         globalstatus = true,
-        theme = 'rose-pine',
+        -- theme = 'rose-pine',
         component_separators = { left = ' ', right = '' },
         -- component_separators = { left = '', right = '' },
         -- section_separators = { left = '', right = '' },
@@ -127,7 +132,7 @@ return {
         -- lualine_c = { 'filename', 'filetype'},
         -- lualine_c = { commandHistory, statusMode },
         lualine_c = { file_name, autosessions },
-        lualine_x = { commandHistory, lsp_clients, debug_status, tabsize, encoding, 'fileformat' },
+        lualine_x = { theme, commandHistory, lsp_clients, debug_status, tabsize, encoding, 'fileformat' },
         lualine_y = { progress },
         lualine_z = { 'location' }
       },

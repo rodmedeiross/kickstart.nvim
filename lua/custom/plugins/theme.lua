@@ -1,20 +1,22 @@
--- {
---   "catppuccin/nvim",
---   name = "catppuccin",
---   priority = 1000,
---   config = function()
---     vim.cmd.colorscheme 'catppuccin-macchiato'
---   end,
---   opt = {
---     styles = {
---       types = { 'italic' },
---       -- booleans = { 'italic' }
---       functions = { 'bold' },
---     }
---   }
--- },
+local theme_table = {
+  'rose-pine',
+  'dracula',
+  'catppuccin-macchiato'
+}
+
+local function set_theme(theme)
+  vim.cmd('colorscheme ' .. theme)
+end
+
+math.randomseed(os.time())
 
 return {
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+  },
+  { "Mofiqul/dracula.nvim" },
   {
     'rose-pine/neovim',
     name = 'rose-pine',
@@ -23,13 +25,18 @@ return {
         variant = 'moon',
         dark_variant = 'moon',
         extend_background_behind_borders = true,
-        -- dim_inactive_windows = true,
-
         enable = {
           terminal = true,
         },
       })
-      vim.cmd('colorscheme rose-pine')
+
+      vim.api.nvim_create_autocmd('VimEnter', {
+        callback = function()
+          local next_theme = theme_table[math.random(#theme_table)]
+          set_theme(next_theme)
+          print("Switched to " .. next_theme)
+        end
+      })
     end,
   },
   {
@@ -37,15 +44,5 @@ return {
     config = function()
       vim.keymap.set('n', '<leader>tr', '<cmd>TransparentToggle<CR>', { desc = "Enable t[R]ansparency UI" })
     end
-  }
+  },
 }
-
--- return {
---   "folke/tokyonight.nvim",
---   lazy = false,
---   priority = 1000,
---   opts = {},
---   config = function()
---     vim.cmd('colorscheme tokyonight-moon')
---   end
--- }

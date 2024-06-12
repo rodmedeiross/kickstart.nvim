@@ -22,6 +22,7 @@ return {
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
     'mxsdev/nvim-dap-vscode-js',
+    'nvim-neotest/nvim-nio',
 
     {
       'Joakker/lua-json5',

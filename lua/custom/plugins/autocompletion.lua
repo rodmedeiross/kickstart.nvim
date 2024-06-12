@@ -74,8 +74,7 @@ return {
       },
       sources = {
         { name = 'nvim_lsp' },
-        { name = 'luasnip', max_item_count = 3 },
-        { name = 'copilot' },
+        { name = 'luasnip', },
         { name = 'buffer',  max_item_count = 5 },
         { name = 'path',    max_item_count = 3 },
       },
@@ -94,5 +93,13 @@ return {
         ghost_text = true,
       },
     }
+
+    -- Setup up vim-dabbod
+    cmp.setup.filetype({ "sql" }, {
+      sources = {
+        { name = "vim-dadbod-completion" },
+        { name = "buffer" },
+      },
+    })
   end
 }
