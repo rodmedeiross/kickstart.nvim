@@ -1,7 +1,8 @@
 local theme_table = {
   'rose-pine',
-  'dracula',
-  'catppuccin-macchiato'
+  'catppuccin-macchiato',
+  'tokyonight',
+  'kanagawa'
 }
 
 local function set_theme(theme)
@@ -16,13 +17,25 @@ return {
     name = "catppuccin",
     priority = 1000,
   },
-  { "Mofiqul/dracula.nvim" },
+  {
+    "rebelot/kanagawa.nvim",
+    priority = 1000,
+  },
+  {
+    "folke/tokyonight.nvim",
+    priority = 1000,
+    config = function()
+      require("tokyonight").setup {
+        transparent = vim.g.transparent_enabled
+      }
+    end
+  },
   {
     'rose-pine/neovim',
     name = 'rose-pine',
     config = function()
       require('rose-pine').setup({
-        variant = 'moon',
+        variant = 'auto',
         dark_variant = 'moon',
         extend_background_behind_borders = true,
         enable = {
@@ -43,6 +56,12 @@ return {
     'xiyaowong/transparent.nvim',
     config = function()
       vim.keymap.set('n', '<leader>tr', '<cmd>TransparentToggle<CR>', { desc = "Enable t[R]ansparency UI" })
+      require("transparent").setup({
+        extra_groups = {
+          "NormalFloat",
+          "NvimTreeNormal"
+        },
+      })
     end
   },
 }

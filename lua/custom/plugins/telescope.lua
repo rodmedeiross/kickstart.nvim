@@ -19,6 +19,12 @@ return {
   config = function()
     -- See `:help telescope` and `:help telescope.setup()`
     require('telescope').setup {
+      pickers = {
+        find_files = {
+          file_ignore_patterns = { 'node_modules', '.git', '.venv' },
+          hidden = true
+        }
+      },
       extensions = {
         ["ui-select"] = {
           require("telescope.themes").get_dropdown {}

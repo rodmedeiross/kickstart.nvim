@@ -102,6 +102,16 @@ vim.keymap.set('v', '<A-j>', ":m '>+1<CR>gv=gv", { silent = true })
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
+-- Navigate between Buffers
+vim.keymap.set('n', "<C-e>", '<Cmd>bdelete<CR>', { silent = true })
+vim.keymap.set('n', "<Tab>", '<Cmd>bnext<CR>', { silent = true })
+vim.keymap.set('n', "<S-Tab>", '<Cmd>bprevious<CR>', { silent = true })
+vim.keymap.set('t', "<Esc>", [[<C-\><C-n>]])
+vim.keymap.set('t', "<C-h>", [[<C-\><C-n><C-w>h]])
+vim.keymap.set('t', "<C-j>", [[<C-\><C-n><C-w>j]])
+vim.keymap.set('t', "<C-k>", [[<C-\><C-n><C-w>k]])
+vim.keymap.set('t', "<C-l>", [[<C-\><C-n><C-w>l]])
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
